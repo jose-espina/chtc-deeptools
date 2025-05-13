@@ -7,7 +7,7 @@
 Requirements = (Target.hasCHTCStaging == true)
 
 # Provide HTCondor with the name of the Docker container
-container_image = file:///staging/jespina/containers/chtc-deeptools.sif
+container_image = file:///staging/groups/roopra_group/containers/chtc-deeptools.sif
 universe = container
 
 executable = bigwigsummary.sh
