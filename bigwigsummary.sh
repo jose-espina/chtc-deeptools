@@ -30,7 +30,7 @@ cp /staging/groups/roopra_group/reference_misc/$blacklist input
 
 # run multiBigwigsummary command
 
-multiBigwigsummary bins -b input/$sample1 input/$sample2 input/$sample3 input/$sample4 input/$sample5 input/$sample6 \
+multiBigwigSummary bins -b input/$sample1 input/$sample2 input/$sample3 input/$sample4 input/$sample5 input/$sample6 \
 	--smartLabels -bl input/$blacklist \
 	-o output/result.npz
 
