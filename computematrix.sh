@@ -8,33 +8,39 @@
 export HOME=$PWD
 mkdir -p input output
 
-region1=240930-nuc-EZH2_peaks.narrowPeak
-region2=240930-nuc-SUZ12_peaks.narrowPeak
-sample1=240930-nuc-IgG.bw
-sample2=240930-nuc-EZH2.bw
-sample3=240930-nuc-SUZ12.bw
+region1=
+region2=
+sample1=
+sample2=
+sample3=
+sample4=
+
+rdir= ## directory for regions files
+bwdir= ## directory for bigwigs
+
 
 # copy necessary files from staging to input
-cp /staging/groups/roopra_group/jespina/$region1 input
-cp /staging/groups/roopra_group/jespina/$region2 input
-cp /staging/groups/roopra_group/jespina/$sample1 input
-cp /staging/groups/roopra_group/jespina/$sample2 input
-cp /staging/groups/roopra_group/jespina/$sample3 input
+cp $rdir/$region1 input
+cp $rdir/$region2 input
+cp $bwdir/$sample1 input
+cp $bwdir/$sample2 input
+cp $bwdir/$sample3 input
+cp $bwdir/$sample4 input
 
 # run computematrix commands
-computeMatrix reference-point -S input/$sample1 input/$sample2 input/$sample3 -R input/$region1 \
-	-o output/EZH2_peaks.mat.gz \
+computeMatrix reference-point -S input/$sample1 input/$sample2 input/$sample3 input/$sample4 -R input/$region1 \
+	-o output/ .mat.gz \ ## output mat filename
 	--referencePoint center -b 3000 -a 3000 \
-	--samplesLabel IgG EZH2 SUZ12 --verbose \
+	--samplesLabel label1 label2 labelx --verbose
 
-computeMatrix reference-point -S input/$sample1 input/$sample2 input/$sample3 -R input/$region2 \
-	-o output/SUZ12_peaks.mat.gz \
+computeMatrix reference-point -S input/$sample1 input/$sample2 input/$sample3 input/$sample4 -R input/$region1 \
+	-o output/ .mat.gz \  ## output mat filename
 	--referencePoint center -b 3000 -a 3000 \
-	--samplesLabel IgG EZH2 SUZ12 --verbose \
+	--samplesLabel label1 label2 labelx --verbose
 
 # move outputs to staging
 cd output
-mv *.mat.gz /staging/groups/roopra_group/jespina
+mv *.mat.gz $bwdir ## or wherever you want the output directory
 cd ~
 
 # before script exits, remove files from working directory
